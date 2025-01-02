@@ -46,7 +46,7 @@ class TaskDetailsScreen extends ConsumerWidget {
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
-                            color: Theme.of(context).primaryColor,
+                            // color: Theme.of(context).primaryColorLight,
                           ),
                     ),
                     const SizedBox(height: 20),
@@ -56,8 +56,9 @@ class TaskDetailsScreen extends ConsumerWidget {
                       children: [
                         Icon(
                           task.isCompleted ? Icons.check_circle : Icons.pending,
-                          color:
-                              task.isCompleted ? Colors.green : Colors.orange,
+                          color: task.isCompleted
+                              ? (Theme.of(context).colorScheme.primary)
+                              : Theme.of(context).colorScheme.secondary,
                           size: 30,
                         ),
                         const SizedBox(width: 8),
@@ -68,8 +69,8 @@ class TaskDetailsScreen extends ConsumerWidget {
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                     color: task.isCompleted
-                                        ? Colors.green
-                                        : Colors.red,
+                                        ? userSelectedColor
+                                        : Theme.of(context).colorScheme.error,
                                   ),
                         ),
                       ],
@@ -91,8 +92,7 @@ class TaskDetailsScreen extends ConsumerWidget {
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: utils.getPriorityColor(
-                            task.priority.toString().split('.').last),
+                        color: utils.getPriorityColor(task.priority),
                       ),
                     ),
                     const SizedBox(height: 20),
@@ -103,15 +103,10 @@ class TaskDetailsScreen extends ConsumerWidget {
                     _buildKeyValueRow("End Time", task.endTime),
                     Text(
                       'Duration: ${utils.getDuration(startTime: task.startTime, endTime: task.endTime)}',
-                      style: const TextStyle(
-                        fontSize: 18,
-                        // Adjust based on the screen size or needs
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blueAccent,
-                        // Use a color that contrasts well with the background
-                        letterSpacing:
-                            0.5, // Adding some spacing between letters for clarity
-                      ),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge
+                          ?.copyWith(fontWeight: FontWeight.bold),
                     ),
 
                     const SizedBox(height: 20),
@@ -147,11 +142,11 @@ class TaskDetailsScreen extends ConsumerWidget {
                                 .map<Widget>(
                                   (tag) => Chip(
                                     label: Text(tag),
-                                    backgroundColor: Colors.blue.shade100,
-                                    labelStyle: TextStyle(
-                                      color: Colors.blue.shade900,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                                    // backgroundColor: Colors.blue.shade100,
+                                    // labelStyle: TextStyle(
+                                    //   color: Colors.blue.shade900,
+                                    //   fontWeight: FontWeight.w600,
+                                    // ),
                                   ),
                                 )
                                 .toList(),
@@ -242,9 +237,10 @@ class TaskDetailsScreen extends ConsumerWidget {
   Widget _buildSectionHeader(BuildContext context, String title) {
     return Text(
       title,
-      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
+      style: Theme.of(context)
+          .textTheme
+          .titleLarge
+          ?.copyWith(fontWeight: FontWeight.bold),
     );
   }
 

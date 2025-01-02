@@ -36,7 +36,7 @@ class TaskCard extends StatelessWidget {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      color: _getPriorityColor(task.priority),
+                      color: utils.getPriorityColor(task.priority),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
@@ -108,20 +108,4 @@ class TaskCard extends StatelessWidget {
       ),
     );
   }
-
-  Color _getPriorityColor(TaskPriority priority) {
-    final theme = Theme.of(navigatorKey.currentContext!); // Access the current theme
-
-    switch (priority) {
-      case TaskPriority.low:
-        return theme.primaryColorLight; // Low priority color from theme
-      case TaskPriority.medium:
-        return theme.primaryColorDark; // Medium priority color from theme
-      case TaskPriority.high:
-        return theme.primaryColor; // High priority color from theme
-      default:
-        return Colors.grey; // Default color
-    }
-  }
-
 }

@@ -3,6 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:task_buddy/main.dart';
 
+import '../models/task/task_model.dart';
 import '../service/notification/notification_service.dart';
 import 'database/database_helper.dart';
 
@@ -62,16 +63,19 @@ class Utils {
     ));
   }
 
-  Color getPriorityColor(String priority) {
-    switch (priority.toLowerCase()) {
-      case 'low':
-        return Colors.green;
-      case 'medium':
-        return Colors.orange;
-      case 'high':
-        return Colors.red;
+  Color getPriorityColor(TaskPriority priority) {
+    final theme =
+        Theme.of(navigatorKey.currentContext!); // Access the current theme
+
+    switch (priority) {
+      case TaskPriority.low:
+        return theme.primaryColorLight; // Low priority color from theme
+      case TaskPriority.medium:
+        return theme.primaryColorDark; // Medium priority color from theme
+      case TaskPriority.high:
+        return theme.primaryColor; // High priority color from theme
       default:
-        return Colors.grey;
+        return Colors.grey; // Default color
     }
   }
 
